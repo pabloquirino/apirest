@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ApiRest.Infrastructure")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+55035058aab0da71ef36400dad51b6144e12bf36")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+35030dc247b86ecdb4990daf1a56baafcafc26d9")]
 [assembly: System.Reflection.AssemblyProductAttribute("ApiRest.Infrastructure")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ApiRest.Infrastructure")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

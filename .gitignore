@@ -1,0 +1,13 @@
+dotnet new gitignore
+
+echo ".env" >> .gitignore
+
+echo "appsettings.Development.json" >> .gitignore
+
+docker compose up -d
+
+docker compose ps
+
+dotnet build
+
+dotnet run --project src/ApiRest.API
