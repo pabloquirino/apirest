@@ -1,8 +1,8 @@
 dotnet new gitignore
 
-echo ".env" >> .gitignore
+.env
 
-echo "appsettings.Development.json" >> .gitignore
+appsettings.Development.json
 
 docker compose up -d
 
