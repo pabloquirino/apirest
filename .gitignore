@@ -11,3 +11,7 @@ docker compose ps
 dotnet build
 
 dotnet run --project src/ApiRest.API
+
+bin/
+
+obj/
