@@ -12,6 +12,6 @@ dotnet build
 
 dotnet run --project src/ApiRest.API
 
-bin/
+/bin
 
-obj/
+/obj
