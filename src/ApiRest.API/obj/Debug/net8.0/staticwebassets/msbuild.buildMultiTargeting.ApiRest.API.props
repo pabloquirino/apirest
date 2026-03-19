@@ -1,3 +1,0 @@
-﻿<Project>
-  <Import Project="..\build\ApiRest.API.props" />
-</Project>
