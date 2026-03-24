@@ -1,5 +1,6 @@
 using ApiRest.Application.Extensions;
 using ApiRest.Infrastructure.Extensions;
+using ApiRest.API.Middlewares;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -28,10 +29,7 @@ builder.Services.AddSwaggerGen(c =>
     }});
 });
 
-// Application (MediatR + Validators + Pipeline Behavior)
 builder.Services.AddApplication();
-
-// Infrastructure (DbContext + JWT + Repositórios + UoW)
 builder.Services.AddInfrastructure(builder.Configuration);
 
 var app = builder.Build();
@@ -42,6 +40,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+
+app.UseMiddleware<ExceptionMiddleware>();
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
