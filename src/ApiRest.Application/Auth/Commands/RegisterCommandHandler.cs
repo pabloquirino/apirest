@@ -25,7 +25,7 @@ public class RegisterCommandHandler(
 
         var rawRefresh = authService.GenerateRefreshToken();
         var refreshToken = RefreshToken.Create(
-            user.Id, rawRefresh, 7); // dias — virá de JwtSettings na fase seguinte
+            user.Id, rawRefresh, 7); 
 
         await refreshTokenRepo.AddAsync(refreshToken, ct);
         await uow.CommitAsync(ct);

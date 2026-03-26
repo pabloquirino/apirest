@@ -9,10 +9,10 @@ namespace ApiRest.API.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-[Authorize] // todos os endpoints exigem autenticação
+[Authorize] 
 public class OrdersController(ISender sender) : ControllerBase
 {
-    // GET api/orders — pedidos do usuário logado
+
     [HttpGet]
     public async Task<IActionResult> GetMyOrders(CancellationToken ct)
     {
@@ -20,7 +20,6 @@ public class OrdersController(ISender sender) : ControllerBase
         return Ok(await sender.Send(new GetMyOrdersQuery(userId), ct));
     }
 
-    // GET api/orders/{id}
     [HttpGet("{id:guid}")]
     public async Task<IActionResult> GetById(Guid id, CancellationToken ct)
     {
@@ -28,7 +27,6 @@ public class OrdersController(ISender sender) : ControllerBase
         return Ok(await sender.Send(new GetOrderByIdQuery(id, userId), ct));
     }
 
-    // POST api/orders — criar pedido
     [HttpPost]
     public async Task<IActionResult> Create(
         [FromBody] CreateOrderRequest req,
@@ -46,7 +44,6 @@ public class OrdersController(ISender sender) : ControllerBase
             nameof(GetById), new { id = result.Id }, result);
     }
 
-    // POST api/orders/{id}/confirm
     [HttpPost("{id:guid}/confirm")]
     public async Task<IActionResult> Confirm(Guid id, CancellationToken ct)
     {
@@ -54,7 +51,6 @@ public class OrdersController(ISender sender) : ControllerBase
         return NoContent();
     }
 
-    // POST api/orders/{id}/cancel
     [HttpPost("{id:guid}/cancel")]
     public async Task<IActionResult> Cancel(Guid id, CancellationToken ct)
     {

@@ -47,7 +47,7 @@ public class CreateOrderHandler(
             if (!product.IsActive)
                 throw new DomainException($"Product '{product.Name}' is inactive.");
 
-            product.DeductStock(item.Quantity);  // regra de domínio
+            product.DeductStock(item.Quantity);  
             productRepo.Update(product);
 
             order.AddItem(product, item.Quantity);

@@ -34,9 +34,16 @@ public class ExceptionMiddleware(RequestDelegate next, ILogger<ExceptionMiddlewa
         }
         catch (Exception ex)
         {
-            logger.LogError(ex, "Unhandled exception");
-            await WriteAsync(ctx, (int)HttpStatusCode.InternalServerError,
-                "An unexpected error occurred.");
+            logger.LogError(ex, "An unexpected error occurred");
+            var response = new
+            {
+                status = 500,
+                message = ex.Message, 
+                stack = ex.StackTrace 
+            };
+
+            ctx.Response.StatusCode = 500;
+            await ctx.Response.WriteAsJsonAsync(response);
         }
     }
 
@@ -44,7 +51,7 @@ public class ExceptionMiddleware(RequestDelegate next, ILogger<ExceptionMiddlewa
         HttpContext ctx, int status, string message,
         object? errors = null)
     {
-        ctx.Response.StatusCode  = status;
+        ctx.Response.StatusCode = status;
         ctx.Response.ContentType = "application/json";
 
         var body = JsonSerializer.Serialize(new
@@ -53,8 +60,10 @@ public class ExceptionMiddleware(RequestDelegate next, ILogger<ExceptionMiddlewa
             message,
             errors,
             timestamp = DateTime.UtcNow
-        }, new JsonSerializerOptions {
-            PropertyNamingPolicy = JsonNamingPolicy.CamelCase });
+        }, new JsonSerializerOptions
+        {
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+        });
 
         await ctx.Response.WriteAsync(body);
     }

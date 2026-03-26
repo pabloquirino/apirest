@@ -48,7 +48,6 @@ public class AuthController(ISender sender) : ControllerBase
     }
 }
 
-// Request records — mantidos no mesmo arquivo por simplicidade
 public record RegisterRequest(string Name, string Email, string Password);
 public record LoginRequest(string Email, string Password);
 public record RefreshRequest(string RefreshToken);
