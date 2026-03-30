@@ -8,7 +8,7 @@
 REST API escalável construída com **.NET 8**, **Clean Architecture** e **CQRS**,
 com autenticação JWT + Refresh Token, deploy contínuo via GitHub Actions e Railway.
 
-**[→ Swagger UI (produção)](https://apirest-production-d659.up.railway.app.up.railway.app/swagger)**
+**[→ Swagger UI (produção)](https://apirest-production-d659.up.railway.app/swagger)**
 
 ---
 
