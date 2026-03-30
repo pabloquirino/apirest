@@ -1,14 +1,14 @@
 # ApiRest
 
-![CI](https://github.com/SEU_USUARIO/ApiRest/actions/workflows/ci.yml/badge.svg)
-![CD](https://github.com/SEU_USUARIO/ApiRest/actions/workflows/cd.yml/badge.svg)
+![CI](https://github.com/pabloquirino/ApiRest/actions/workflows/ci.yml/badge.svg)
+![CD](https://github.com/pabloquirino/ApiRest/actions/workflows/cd.yml/badge.svg)
 ![.NET](https://img.shields.io/badge/.NET-8.0-512BD4?logo=dotnet)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
 REST API escalável construída com **.NET 8**, **Clean Architecture** e **CQRS**,
 com autenticação JWT + Refresh Token, deploy contínuo via GitHub Actions e Railway.
 
-**[→ Swagger UI (produção)](https://SEU-PROJETO.up.railway.app/swagger)**
+**[→ Swagger UI (produção)](https://apirest-production-d659.up.railway.app.up.railway.app/swagger)**
 
 ---
 
