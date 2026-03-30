@@ -1,22 +1,54 @@
-name: CD
+name: CI
 
 on:
   push:
+    branches: [main, develop]
+  pull_request:
     branches: [main]
 
 jobs:
-  deploy:
+  build-and-test:
     runs-on: ubuntu-latest
-    needs: [] 
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install Railway CLI
-        run: npm install -g @railway/cli
+      - name: Setup .NET 8
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
 
-      - name: Deploy to Railway
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build --no-restore -c Release
+
+      - name: Run unit tests
+        run: |
+          dotnet test tests/ApiRest.Domain.Tests \
+            --no-build -c Release \
+            --logger "trx;LogFileName=domain-results.trx"
+          dotnet test tests/ApiRest.Application.Tests \
+            --no-build -c Release \
+            --logger "trx;LogFileName=app-results.trx"
+
+      - name: Run integration tests
         env:
-          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
-        run: railway up --service apirest --detach
+          ASPNETCORE_ENVIRONMENT: Development
+          ConnectionStrings__Default: InMemory
+          JwtSettings__SecretKey:     ci-secret-key-32-chars-minimum!!
+          JwtSettings__Issuer:        ApiRest
+          JwtSettings__Audience:      ApiRest.Client
+        run: |
+          dotnet test tests/ApiRest.Integration.Tests \
+            --no-build -c Release \
+            --logger "trx;LogFileName=integration-results.trx"
+
+      - name: Publish test results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: test-results
+          path: "**/*.trx"
