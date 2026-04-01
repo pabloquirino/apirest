@@ -38,10 +38,15 @@ builder.Services.AddInfrastructure(builder.Configuration);
 
 var app = builder.Build();
 
-if (builder.Configuration.GetValue<bool>("EnableSwagger"))
+// Habilita se for ambiente de dev OU se a variável EnableSwagger for true
+if (app.Environment.IsDevelopment() || app.Configuration.GetValue<bool>("EnableSwagger"))
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c => 
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "ApiRest v1");
+        c.RoutePrefix = "swagger"; // Garante que a rota seja /swagger
+    });
 }
 
 app.UseHttpsRedirection();
@@ -59,10 +64,7 @@ try
     using var scope = app.Services.CreateScope();
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
 
-    if (app.Environment.IsDevelopment())
-    {
-        await db.Database.MigrateAsync();
-    }
+    await db.Database.MigrateAsync();
 }
 catch (Exception ex)
 {
