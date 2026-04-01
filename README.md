@@ -33,7 +33,7 @@ com autenticação JWT + Refresh Token, deploy contínuo via GitHub Actions e Ra
 | Validação      | FluentValidation                        |
 | Testes         | xUnit + Moq + FluentAssertions          |
 | CI/CD          | GitHub Actions + Railway                |
-| Documentação   | Swagger / Swashbuckle                   |
+| Documentação   | Swagger (via Swashbuckle)               |
 
 ## Arquitetura
 
@@ -88,7 +88,7 @@ A direção das dependências nunca aponta para fora:
 
 ```bash
 # 1. Clonar o repositório
-git clone https://github.com/SEU_USUARIO/ApiRest.git
+git clone https://github.com/pabloquirino/apirest.git
 cd ApiRest
 
 # 2. Subir o banco de dados
