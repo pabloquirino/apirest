@@ -38,11 +38,12 @@ builder.Services.AddInfrastructure(builder.Configuration);
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
+// Swagger liberado apenas em ambientes específicos
+if (app.Environment.IsDevelopment() || app.Environment.IsStaging())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
-    app.UseHttpsRedirection(); 
+    app.UseHttpsRedirection();
 }
 
 app.UseMiddleware<ExceptionMiddleware>();
@@ -68,6 +69,8 @@ catch (Exception ex)
     Console.WriteLine($"Migration error: {ex.Message}");
 }
 
-app.Run();
+// Suporte à porta dinâmica do Railway
+var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
+app.Run($"http://0.0.0.0:{port}");
 
 public partial class Program { }
