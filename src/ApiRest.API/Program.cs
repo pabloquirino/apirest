@@ -38,13 +38,13 @@ builder.Services.AddInfrastructure(builder.Configuration);
 
 var app = builder.Build();
 
-// Swagger liberado apenas em ambientes específicos
-if (app.Environment.IsDevelopment() || app.Environment.IsStaging())
+if (builder.Configuration.GetValue<bool>("EnableSwagger"))
 {
     app.UseSwagger();
     app.UseSwaggerUI();
-    app.UseHttpsRedirection();
 }
+
+app.UseHttpsRedirection();
 
 app.UseMiddleware<ExceptionMiddleware>();
 
