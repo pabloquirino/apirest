@@ -8,7 +8,9 @@
 REST API escalável construída com **.NET 8**, **Clean Architecture** e **CQRS**,
 com autenticação JWT + Refresh Token, deploy contínuo via GitHub Actions e Railway.
 
-**[→ Swagger UI (produção)](https://apirest-production-d659.up.railway.app/swagger)**
+<a href="https://apirest-production-d659.up.railway.app/swagger" target="_blank">
+  → Swagger UI (produção)
+</a>
 
 ---
 
@@ -77,67 +79,6 @@ A direção das dependências nunca aponta para fora:
 | POST   | `/api/orders`                   | Customer  | Criar pedido         |
 | POST   | `/api/orders/{id}/confirm`      | Customer  | Confirmar pedido     |
 | POST   | `/api/orders/{id}/cancel`       | Customer  | Cancelar pedido      |
-
-## Rodando localmente
-
-### Pré-requisitos
-- [.NET 8 SDK](https://dotnet.microsoft.com/download)
-- [Docker](https://www.docker.com/)
-
-### Setup
-
-```bash
-# 1. Clonar o repositório
-git clone https://github.com/pabloquirino/apirest.git
-cd ApiRest
-
-# 2. Subir o banco de dados
-docker compose up -d
-
-# 3. Aplicar migrations
-dotnet ef database update \
-  --project src/ApiRest.Infrastructure \
-  --startup-project src/ApiRest.API
-
-# 4. Rodar a API
-dotnet run --project src/ApiRest.API
-```
-
-Acesse o Swagger em: `https://localhost:5001/swagger`
-
-### Variáveis de ambiente
-
-Crie o arquivo `src/ApiRest.API/appsettings.Development.json`:
-
-```json
-{
-  "ConnectionStrings": {
-    "Default": "Host=localhost;Port=5432;Database=portfolio_db;Username=portfolio_user;Password=supersenha123"
-  },
-  "JwtSettings": {
-    "SecretKey": "SUA-CHAVE-SECRETA-DE-32-CHARS-MINIMO",
-    "Issuer": "ApiRest",
-    "Audience": "ApiRest.Client",
-    "ExpiryMinutes": 15,
-    "RefreshExpiryDays": 7
-  }
-}
-```
-
-## Testes
-
-```bash
-# Todos os testes
-dotnet test
-
-# Com cobertura
-dotnet test --collect:"XPlat Code Coverage"
-```
-
-A suíte cobre 3 camadas:
-- **Domain.Tests** — regras de negócio puras (sem dependências)
-- **Application.Tests** — handlers com repositórios mockados (Moq)
-- **Integration.Tests** — pipeline HTTP completo com banco InMemory
 
 ## Deploy
 
