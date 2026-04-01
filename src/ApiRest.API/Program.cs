@@ -69,8 +69,6 @@ catch (Exception ex)
     Console.WriteLine($"Migration error: {ex.Message}");
 }
 
-// Suporte à porta dinâmica do Railway
-var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
-app.Run($"http://0.0.0.0:{port}");
+app.Run();
 
 public partial class Program { }
