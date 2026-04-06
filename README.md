@@ -93,7 +93,7 @@ O deploy é automático via GitHub Actions:
 ### Setup
 ```bash
 # 1. Clonar o repositório
-git clone https://github.com/SEU_USUARIO/ApiRest.git
+git clone https://github.com/pabloquirino/ApiRest.git
 cd apirest
 
 # 2. Configurar variáveis de ambiente
