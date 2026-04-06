@@ -94,7 +94,7 @@ O deploy é automático via GitHub Actions:
 ```bash
 # 1. Clonar o repositório
 git clone https://github.com/pabloquirino/ApiRest.git
-cd apirest
+cd ApiRest
 
 # 2. Configurar variáveis de ambiente
 Crie o arquivo `src/ApiRest.API/appsettings.Development.json`:
