@@ -93,8 +93,8 @@ O deploy é automático via GitHub Actions:
 ### Setup
 ```bash
 # 1. Clonar o repositório
-git clone https://github.com/SEU_USUARIO/ApiRest.git
-cd apirest
+git clone https://github.com/pabloquirino/ApiRest.git
+cd ApiRest
 
 # 2. Configurar variáveis de ambiente
 Crie o arquivo `src/ApiRest.API/appsettings.Development.json`:
@@ -112,20 +112,20 @@ Crie o arquivo `src/ApiRest.API/appsettings.Development.json`:
 }
 
 cp .env.example .env
-# Edite o .env com seus valores locais
 
 # 3. Subir o banco de dados
 docker compose up -d
 
-# 4. Aplicar migrations
-dotnet ef database update \
-  --project src/ApiRest.Infrastructure \
-  --startup-project src/ApiRest.API
+# 4. Rodar restore do NuGet
+dotnet restore
 
-# 5. Rodar a API
+# 5. Aplicar migrations
+dotnet ef database update --project src/ApiRest.Infrastructure --startup-project src/ApiRest.API
+
+# 6. Rodar a API
 dotnet run --project src/ApiRest.API
 ```
-Acesse o Swagger em: `https://localhost:5001/swagger`
+Acesse o Swagger em: `http://localhost:5277/swagger`
 
 ## Licença
 
