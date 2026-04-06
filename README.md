@@ -84,6 +84,49 @@ O deploy é automático via GitHub Actions:
 - **Push para `develop`** → roda CI (build + testes)
 - **Merge para `main`** → roda CI + deploy automático na Railway
 
+## Rodando localmente
+
+### Pré-requisitos
+- [.NET 8 SDK](https://dotnet.microsoft.com/download)
+- [Docker](https://www.docker.com/)
+
+### Setup
+```bash
+# 1. Clonar o repositório
+git clone https://github.com/SEU_USUARIO/ApiRest.git
+cd apirest
+
+# 2. Configurar variáveis de ambiente
+Crie o arquivo `src/ApiRest.API/appsettings.Development.json`:
+{
+  "ConnectionStrings": {
+    "Default": "Host=localhost;Port=5432;Database=clone_db;Username=clone_user;Password=supersenha123"
+  },
+  "JwtSettings": {
+    "SecretKey": "SUA-CHAVE-SECRETA-DE-32-CHARS-MINIMO",
+    "Issuer": "ApiRest",
+    "Audience": "ApiRest.Client",
+    "ExpiryMinutes": 15,
+    "RefreshExpiryDays": 7
+  }
+}
+
+cp .env.example .env
+# Edite o .env com seus valores locais
+
+# 3. Subir o banco de dados
+docker compose up -d
+
+# 4. Aplicar migrations
+dotnet ef database update \
+  --project src/ApiRest.Infrastructure \
+  --startup-project src/ApiRest.API
+
+# 5. Rodar a API
+dotnet run --project src/ApiRest.API
+```
+Acesse o Swagger em: `https://localhost:5001/swagger`
+
 ## Licença
 
 MIT — veja [LICENSE](LICENSE) para detalhes.
