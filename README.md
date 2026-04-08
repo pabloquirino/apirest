@@ -81,8 +81,7 @@ A direção das dependências nunca aponta para fora:
 ## Deploy
 
 O deploy é automático via GitHub Actions:
-- **Push para `develop`** → roda CI (build + testes)
-- **Merge para `main`** → roda CI + deploy automático na Railway
+* Push para `main` → roda CI (build + testes) + deploy automático na Railway
 
 ## Rodando localmente
 
